@@ -1,0 +1,72 @@
+name: Bug report
+description: A skill gave wrong, inconsistent or unsafe results
+title: "[bug] <skill>: <short description>"
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **Remove secrets, company names, internal URLs and personal data**
+        from everything you paste below, including screenshots.
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      placeholder: ai-assisted-manual-testing
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: AI agent and model
+      placeholder: e.g. Claude Code with Claude Sonnet, Cursor, Codex
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem?
+      options:
+        - Wrong verdict (passed/failed/blocked incorrectly)
+        - Inconsistent results between runs
+        - Report output is broken or malformed
+        - Agent ignored a rule in the skill
+        - Unsafe behaviour (secrets, unapproved writes)
+        - Instructions unclear or contradictory
+        - Reference code doesn't work
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input
+      description: The test case or request you gave (sanitised), and the relevant config.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the agent did
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it should have done
+      description: If you know which section of the skill covers this, mention it (e.g. §5.4).
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, output or screenshots
+      description: Sanitised.
+  - type: checkboxes
+    id: sanitised
+    attributes:
+      label: Checklist
+      options:
+        - label: I removed secrets, company names, internal URLs and personal data from this issue
+          required: true

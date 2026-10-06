@@ -62,9 +62,9 @@ Only maintainers can push to this repository. Everyone else contributes from a f
 Click **Fork** on GitHub, then:
 
 ```bash
-git clone https://github.com/<your-username>/<this-repo>.git
-cd <this-repo>
-git remote add upstream https://github.com/<owner>/<this-repo>.git
+git clone https://github.com/<your-username>/qa-ai-skills.git
+cd qa-ai-skills
+git remote add upstream https://github.com/batuzai04123/qa-ai-skills.git
 ```
 
 ### 2. Create a branch
@@ -100,7 +100,7 @@ git rebase upstream/main
 git push -u origin feat/ai-assisted-manual-testing-notion-output
 ```
 
-Open the PR against `<owner>/<this-repo>:main`. Fill in the PR template completely — the checklist
+Open the PR against `batuzai04123/qa-ai-skills:main`. Fill in the PR template completely — the checklist
 is how reviewers know the change was tested and sanitised.
 
 ### 6. Respond to review
