@@ -98,7 +98,7 @@ failures → investigate the cycle's failures → automate the stable cases → 
 ### 1. Get the skills
 
 ```bash
-git clone https://github.com/<your-org>/<this-repo>.git
+git clone https://github.com/batuzai04123/qa-ai-skills.git
 ```
 
 ### 2. Install a skill into your agent
@@ -106,7 +106,7 @@ git clone https://github.com/<your-org>/<this-repo>.git
 **Claude Code**
 ```bash
 mkdir -p .claude/skills/ai-assisted-manual-testing
-cp <this-repo>/skills/ai-assisted-manual-testing/SKILL.md .claude/skills/ai-assisted-manual-testing/
+cp qa-ai-skills/skills/ai-assisted-manual-testing/SKILL.md .claude/skills/ai-assisted-manual-testing/
 ```
 Then run it as `/ai-assisted-manual-testing PROJ-142`, or just ask: *"run manual test PROJ-142 and
 give me a Word report"*.
@@ -229,16 +229,24 @@ Every skill in this repository follows these rules. New skills must too.
 ├── README.md
 ├── LICENSE
 ├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── .github/
+│   ├── CODEOWNERS
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── ISSUE_TEMPLATE/           # bug report and skill proposal forms
 ├── skills/
 │   ├── ai-assisted-manual-testing/
 │   │   ├── SKILL.md              # the skill itself
+│   │   ├── CHANGELOG.md          # version history for this skill
 │   │   ├── references/           # optional deep-dive docs loaded on demand
 │   │   └── scripts/              # optional helpers (capture kit, renderers)
 │   └── <next-skill>/
-│       └── SKILL.md
+│       ├── SKILL.md
+│       └── CHANGELOG.md
 └── examples/
     ├── qa-testing.config.yaml    # sample configuration
-    └── sample-report/            # example evidence reports in each format
+    └── <skill-name>/             # sanitised sample inputs and outputs (contributions welcome)
 ```
 
 ---
