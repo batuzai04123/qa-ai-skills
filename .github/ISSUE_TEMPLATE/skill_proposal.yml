@@ -1,0 +1,57 @@
+name: Skill proposal
+description: Propose a new skill, or a major change to an existing one
+title: "[proposal] <skill-name>"
+labels: [proposal]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read [Adding a new skill](https://github.com/batuzai04123/qa-ai-skills/blob/main/CONTRIBUTING.md#adding-a-new-skill) first.
+        A maintainer will confirm the name and scope before you start writing.
+  - type: input
+    id: name
+    attributes:
+      label: Proposed skill name
+      description: lowercase-hyphenated, no company or vendor names
+      placeholder: test-data-seeder
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What QA problem does it solve?
+      description: Who runs it, and how often?
+    validations:
+      required: true
+  - type: textarea
+    id: io
+    attributes:
+      label: Input and output
+      placeholder: "A test-case ID in → a Word report out"
+    validations:
+      required: true
+  - type: textarea
+    id: repeatable
+    attributes:
+      label: Which decisions must be identical every run?
+      description: These need to be code or fixed rules, not the model's judgement.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: What could go wrong if an agent runs it unattended?
+      description: Writes to shared systems, deleted data, leaked credentials… and how the skill prevents it.
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: What will users configure instead of hard-coding?
+      description: Trackers, environments, accounts, output formats, etc.
+  - type: checkboxes
+    id: build
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to write this skill myself
