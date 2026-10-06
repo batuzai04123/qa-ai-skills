@@ -1,0 +1,73 @@
+# Sample configuration for QA AI Skills.
+# Copy to your repo root as qa-testing.config.yaml and adjust.
+# Credentials are never stored here — only the NAMES of the environment variables that hold them.
+
+project: "My Product"
+
+# ── Where test cases come from ────────────────────────────────────────────────
+testCaseSource:
+  type: jira            # jira | azure-devops | testrail | github | gitlab | linear | clickup | notion | sheet | file | inline
+  # type-specific keys, e.g.
+  baseUrl: https://example.atlassian.net
+  stepsField: description   # which field holds the steps (description, custom field, test-steps table…)
+  # for type: file  →  path: ./test-cases/{caseId}.feature
+
+# ── What is under test ────────────────────────────────────────────────────────
+environments:
+  staging:
+    kind: web                         # web | mobile | desktop | api | cli
+    baseUrl: https://staging.example.com
+  prod-readonly:
+    kind: web
+    baseUrl: https://www.example.com
+    readOnly: true                    # the agent must refuse mutating steps here
+  android-emulator:
+    kind: mobile
+    appiumUrl: http://127.0.0.1:4723
+    capabilities: { platformName: Android, "appium:app": ./build/app-debug.apk }
+  public-api:
+    kind: api
+    baseUrl: https://api.staging.example.com
+defaultEnvironment: staging
+
+defaults:
+  browser: chromium                   # chromium | firefox | webkit | chrome | msedge
+  platform: Desktop                   # Desktop | Mobile | Tablet | Android | iOS …
+  language: en
+  viewport: { width: 1920, height: 1080 }
+
+# ── Test accounts (credentials are NEVER in this file — env var names only) ──
+accounts:
+  - id: basic-user
+    usernameEnv: QA_BASIC_USER
+    passwordEnv: QA_BASIC_PASS
+    tags: [basic, read-only-safe]
+  - id: admin-user
+    usernameEnv: QA_ADMIN_USER
+    passwordEnv: QA_ADMIN_PASS
+    tags: [admin]
+
+# ── Evidence output ───────────────────────────────────────────────────────────
+output:
+  formats: [docx]                     # one or more: gdoc | gsheet | docx | xlsx | pdf | html | md | odt | ods | confluence | notion
+  destination:
+    type: local                       # local | google-drive | sharepoint | confluence | s3 | …
+    dir: ./test-evidence/{cycle}/{feature}
+    # google-drive → folderId: "<drive folder id>"
+  naming: "[{cycle}] {caseId}-{platform}-{browser}-{language}"
+  redact:                              # always masked in every screenshot
+    - 'input[type="password"]'
+    - '[data-sensitive]'
+  imageWidthInches: 6.5               # for page-based formats
+
+# ── Result recording ─────────────────────────────────────────────────────────
+results:
+  csv: ./manual-test-results.csv       # always written
+  commentOnTestCase: true              # post a short result + link on the test case
+  testManagementWriteback: false       # e.g. create a TestRail/Xray run result
+  cycle: ""                            # e.g. "Sprint 42" / "Release 3.1"; empty → no write-back to shared boards
+
+# ── Orchestration ─────────────────────────────────────────────────────────────
+parallel:
+  maxInFlight: 4
+stateDir: .qa-runs                     # per-run working files (git-ignored)
